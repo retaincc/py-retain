@@ -32,11 +32,12 @@ class Retaincc(object):
     api_version = 1
     api_endpoint = 'https://app.retain.cc/api/v' + str(api_version) + '/'
     timeout = DEFAULT_TIMEOUT
+    s = requests.Session()
     request_map = {
-        'get': requests.get,
-        'post': requests.post,
-        'put': requests.put,
-        'delete': requests.delete
+        'get': s.get,
+        'post': s.post,
+        'put': s.put,
+        'delete': s.delete
     }
 
     @classmethod
