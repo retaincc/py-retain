@@ -147,3 +147,44 @@ class Retaincc(object):
         user_dict = cls._do_call(
             'DELETE', cls.api_endpoint + 'users', params)
         return user_dict
+
+    @classmethod
+    def create_company(cls, **kwargs):
+        """ Creates a company.
+
+        **Arguments**
+
+        - `id`: required — a unique string identifier for the company
+        - `name`: The company name
+        - `created_at`: A UNIX timestamp representing the date the company was
+          created
+        - `plan`: Plan of a company
+        - `spending`: The total spending of the company
+        - `custom_data`: A hash of key/value pairs containing any other data
+          about the user you want Retaincc to store.
+        - `last_impression_at`: Last time any user belongs to the company
+
+
+        >>> company = Retaincc.create_company(id='7902', name='Oursky',
+        ... created_at=1359510808, plan='Starter',
+        ... custom_data={"submittsion_usage":201,"submission_quota":500,"disk_usage":63,"disk_quota":500})
+        >>> company['name']
+        u'Oursky'
+        >>> company['custom_data']['submittsion_usage']
+        201
+
+        """
+        return cls._do_call(
+            'POST', Retaincc.api_endpoint + 'companies', params=kwargs)
+
+    @classmethod
+    def update_company(cls, **kwargs):
+        """ Update a user with the available parameters.
+
+        >>> company = Retaincc.update_company(id='7902', name='Oursky Ltd')
+        >>> company['name']
+        u'Guido'
+
+        """
+        return cls._do_call(
+            'PUT', cls.api_endpoint + 'companies', params=kwargs)
